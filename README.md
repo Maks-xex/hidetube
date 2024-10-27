@@ -2,9 +2,10 @@
 Extension for hiding youtube player HUD
 ## How to install
 ### Chrome:
-1. Go to chrome://extensions/
-2. Enable developer mode
-3. Click "Load unpacked"
+1. Unpack zip
+2. Go to chrome://extensions/
+3. Enable developer mode
+4. Click "Load unpacked"
 ### Firefox:
 1. Go to about:addons
 2. Click on gear at the top
