@@ -1,7 +1,7 @@
 
 let visibility = "none";
 document.addEventListener("keydown", (e) => {
-  if (e.code === "KeyH") {
+  if (e.code === "KeyH" && (document.activeElement !== document.querySelector("input#search"))) {
     if(document.querySelectorAll(".ytp-ce-element")){
       [...document.querySelectorAll(".ytp-ce-element") as any].forEach((div) => div.style.display = visibility);
     }
