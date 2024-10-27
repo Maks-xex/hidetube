@@ -1,0 +1,42 @@
+{
+  "short_name": "HYTHUD",
+  "name": "Hide YouTube HUD",
+  "description": "To hide YT hud just press 'h' key on keyboard",
+  "manifest_version": 3,
+  "version": "1.0",
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "press H key to hide player HUD"
+  },
+  "options_ui": {
+    "page": "index.html"
+  },
+  "icons": {
+    "16": "logo192.png",
+    "48": "logo192.png",
+    "128": "logo192.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": ["./static/js/content.js"],
+      "all_frames": false,
+      "run_at": "document_end"
+    }
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "addon@example.com",
+      "strict_min_version": "42.0"
+    }
+  },  
+  "web_accessible_resources": [
+    {
+      "resources": ["tileset/*.json", "layer/*.json", "sound/*.ogg"],
+      "matches": ["https://www.youtube.com/*"]
+    }
+  ],
+  "devtools_page": "index.html",
+  "host_permissions": ["https://www.youtube.com/*","https://www.youtu.be/*"],
+  "permissions": ["storage", "activeTab", "tabs"]
+}
