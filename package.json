@@ -15,7 +15,7 @@
     "typescript": "^4.9.5"
   },
   "scripts": {
-    "start:firefox": "web-ext run --source-dir ./build",
+    "build:firefox": "web-ext build --overwrite-dest --source-dir ./build --artifacts-dir ./web-ext-artifacts",
     "start": "react-script start",
     "build": "set INLINE_RUNTIME_CHUNK=false&&craco build",
     "test": "react-scripts test",
@@ -39,6 +39,6 @@
     ]
   },
   "devDependencies": {
-    "web-ext": "^7.8.0"
+    "web-ext": "^8.3.0"
   }
 }
