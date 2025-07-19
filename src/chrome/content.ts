@@ -2,7 +2,14 @@ let isVisible = true;
 
 document.addEventListener("keydown", (event) => {
   const searchInput = document.querySelector("input#search");
-  if (event.code === "KeyH" && document.activeElement !== searchInput) {
+  const focusedElement = document.activeElement as any;
+  const isInCommentSection = focusedElement.closest("#contenteditable-root");
+
+  if (
+    event.code === "KeyH" &&
+    focusedElement !== searchInput &&
+    !isInCommentSection
+  ) {
     isVisible = !isVisible;
     applyVisibility(isVisible);
     chrome.storage.local.set({ isVisible });
