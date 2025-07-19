@@ -25,14 +25,17 @@ export const App = () => {
   }, []);
 
   const toggleVisibility = () => {
+    const newState = !isVisibile;
+    setIsVisibile(newState);
+    chrome.storage.local.set({ isVisible: newState });
+
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      chrome.tabs.sendMessage(
-        tabs[0].id!,
-        { type: "TOGGLE_UI" },
-        (response) => {
-          if (response) setIsVisibile(response.visible);
-        }
-      );
+      if (tabs[0].url?.includes("youtube.com/watch")) {
+        chrome.tabs.sendMessage(tabs[0].id!, {
+          type: "APPLY_VISIBILITY",
+          visible: newState,
+        });
+      }
     });
   };
 

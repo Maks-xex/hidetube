@@ -1,23 +1,16 @@
 let isVisible = true;
 
-document.addEventListener("keydown", (e) => {
+document.addEventListener("keydown", (event) => {
   const searchInput = document.querySelector("input#search");
-  if (e.code === "KeyH" && document.activeElement !== searchInput) {
-    toggleUI();
+  if (event.code === "KeyH" && document.activeElement !== searchInput) {
+    isVisible = !isVisible;
+    applyVisibility(isVisible);
+    chrome.storage.local.set({ isVisible });
   }
 });
 
-chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
-  if (msg.type === "TOGGLE_UI") {
-    toggleUI();
-    sendResponse({ visible: isVisible });
-  } else if (msg.type === "GET_VISIBILITY") {
-    sendResponse({ visible: isVisible });
-  }
-});
-
-function toggleUI() {
-  isVisible = !isVisible;
+const applyVisibility = (visible: boolean) => {
+  isVisible = visible;
   const display = isVisible ? "" : "none";
 
   const elements = document.querySelectorAll(".ytp-ce-element");
@@ -34,6 +27,26 @@ function toggleUI() {
   if (chromeBottom) chromeBottom.style.display = display;
   if (chromeTop) chromeTop.style.display = display;
   if (annotation) annotation.style.display = display;
-}
+};
 
+chrome.storage.local.get("isVisible", (result) => {
+  if (typeof result.isVisible === "boolean") {
+    applyVisibility(result.isVisible);
+  }
+});
+
+chrome.runtime.onMessage.addListener((msg, _, sendResponse) => {
+  if (msg.type === "TOGGLE_UI") {
+    isVisible = !isVisible;
+    chrome.storage.local.set({ isVisible });
+    applyVisibility(isVisible);
+    sendResponse({ visible: isVisible });
+  } else if (msg.type === "GET_VISIBILITY") {
+    sendResponse({ visible: isVisible });
+  } else if (msg.type === "APPLY_VISIBILITY") {
+    if (typeof msg.visible === "boolean") {
+      applyVisibility(msg.visible);
+    }
+  }
+});
 export {};
