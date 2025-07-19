@@ -1,21 +1,39 @@
+let isVisible = true;
 
-let visibility = "none";
 document.addEventListener("keydown", (e) => {
-  if (e.code === "KeyH" && (document.activeElement !== document.querySelector("input#search"))) {
-    if(document.querySelectorAll(".ytp-ce-element")){
-      [...document.querySelectorAll(".ytp-ce-element") as any].forEach((div) => div.style.display = visibility);
-    }
-    (document.querySelector(".ytp-chrome-bottom") as any).style.display = visibility;
-    (document.querySelector(".ytp-chrome-top") as any).style.display = visibility;
-    if((document.querySelector(".annotation") as any)){
-      (document.querySelector(".annotation") as any).style.display = visibility;
-    }
-    if (visibility === "none") {
-      visibility = "";
-    } else {
-      visibility = "none";
-    }
+  const searchInput = document.querySelector("input#search");
+  if (e.code === "KeyH" && document.activeElement !== searchInput) {
+    toggleUI();
   }
 });
 
-export { }
+chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+  if (msg.type === "TOGGLE_UI") {
+    toggleUI();
+    sendResponse({ visible: isVisible });
+  } else if (msg.type === "GET_VISIBILITY") {
+    sendResponse({ visible: isVisible });
+  }
+});
+
+function toggleUI() {
+  isVisible = !isVisible;
+  const display = isVisible ? "" : "none";
+
+  const elements = document.querySelectorAll(".ytp-ce-element");
+  elements.forEach((el) => {
+    (el as HTMLElement).style.display = display;
+  });
+
+  const chromeBottom = document.querySelector(
+    ".ytp-chrome-bottom"
+  ) as HTMLElement;
+  const chromeTop = document.querySelector(".ytp-chrome-top") as HTMLElement;
+  const annotation = document.querySelector(".annotation") as HTMLElement;
+
+  if (chromeBottom) chromeBottom.style.display = display;
+  if (chromeTop) chromeTop.style.display = display;
+  if (annotation) annotation.style.display = display;
+}
+
+export {};
