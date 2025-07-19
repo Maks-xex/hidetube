@@ -1,7 +1,7 @@
 {
-  "short_name": "HYTHUD",
-  "name": "Hide YouTube HUD",
-  "description": "To hide YT hud just press 'h' key on keyboard",
+  "short_name": "HTUI",
+  "name": "HideTubeUI",
+  "description": "Toggle YouTube overlays and controls",
   "manifest_version": 3,
   "version": "1.0",
   "action": {
@@ -29,7 +29,7 @@
       "id": "addon@example.com",
       "strict_min_version": "42.0"
     }
-  },  
+  },
   "web_accessible_resources": [
     {
       "resources": ["tileset/*.json", "layer/*.json", "sound/*.ogg"],
@@ -37,6 +37,6 @@
     }
   ],
   "devtools_page": "index.html",
-  "host_permissions": ["https://www.youtube.com/*","https://www.youtu.be/*"],
+  "host_permissions": ["https://www.youtube.com/*", "https://www.youtu.be/*"],
   "permissions": ["storage", "activeTab", "tabs"]
 }
