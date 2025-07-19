@@ -4,13 +4,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faComment,
   faExpand,
+  faPause,
   faPlay,
   faThumbsUp,
   faVolumeLow,
+  faVolumeMute,
 } from "@fortawesome/free-solid-svg-icons";
+
+type ControlsState = {
+  isPlaying: boolean;
+  isMute: boolean;
+};
 
 export const App = () => {
   const [isVisibile, setIsVisibile] = useState(true);
+  const [controls, setControls] = useState<ControlsState>({
+    isPlaying: true,
+    isMute: false,
+  });
 
   useEffect(() => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -23,6 +34,13 @@ export const App = () => {
       );
     });
   }, []);
+
+  const toggleControl = (controlName: keyof ControlsState) => {
+    setControls((prev) => ({
+      ...prev,
+      [controlName]: !prev[controlName],
+    }));
+  };
 
   const toggleVisibility = () => {
     const newState = !isVisibile;
@@ -41,30 +59,57 @@ export const App = () => {
 
   return (
     <div className="popup">
-      <ul className={`popup__controls lstn ${!isVisibile && "hidden"}`}>
-        <li>
-          <FontAwesomeIcon icon={faPlay} />
+      <ul
+        className={`popup__controls lstn ${
+          !isVisibile && "popup__controls--hidden"
+        }`}
+      >
+        <li
+          className="popup__control"
+          onClick={() => toggleControl("isPlaying")}
+        >
+          <FontAwesomeIcon
+            icon={controls.isPlaying ? faPlay : faPause}
+            width="15px"
+          />
         </li>
-        <li>
-          <FontAwesomeIcon icon={faVolumeLow} />
+        <li className="popup__control" onClick={() => toggleControl("isMute")}>
+          <FontAwesomeIcon
+            icon={controls.isMute ? faVolumeMute : faVolumeLow}
+            width="15px"
+          />
         </li>
-        <li className="popup__control--expand">
-          <FontAwesomeIcon color="white" icon={faExpand} />
+        <li className="popup__control popup__control--expand">
+          <FontAwesomeIcon color="white" icon={faExpand} width="15px" />
         </li>
       </ul>
       <nav className="popup__nav">
         <ul className="lstn">
-          <li>
-            <FontAwesomeIcon icon={faThumbsUp} />
+          <li className="popup__control-donate">
+            <a
+              href="https://ko-fi.com/zonkx"
+              title="Support me before I start talking to my computer"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FontAwesomeIcon icon={faThumbsUp} />
+            </a>
           </li>
           <li>
-            <FontAwesomeIcon icon={faComment} />
+            <a
+              href="https://github.com/Maks-xex/hidetube-ui/issues"
+              title="BUG REPORT"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FontAwesomeIcon icon={faComment} />
+            </a>
           </li>
         </ul>
       </nav>
       <div className="popup__main">
         <p className="popup__status">
-          Status: <strong>{isVisibile ? "Vissible" : "Hidden"}</strong>
+          Overlay: <strong>{isVisibile ? "Shown" : "Hidden"}</strong>
         </p>
         <label className="popup__toggle">
           <input
@@ -98,7 +143,9 @@ export const App = () => {
         </p>
       </footer>
       <div
-        className={`popup__fake-progress-bar ${!isVisibile && "hidden"}`}
+        className={`popup__fake-progress-bar ${
+          !isVisibile && "popup__controls--hidden"
+        }`}
       ></div>
     </div>
   );
