@@ -17,7 +17,7 @@ module.exports = {
           runtimeChunk: false,
         },
         plugins: webpackConfig.plugins.filter(
-          (plugin) => plugin.constructor.name !== "GenerateSW" // remove CRA's service worker
+          (plugin) => plugin.constructor.name !== "GenerateSW"
         ),
       };
     },
