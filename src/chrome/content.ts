@@ -2,8 +2,8 @@ let isVisible = true;
 
 document.addEventListener("keydown", (event) => {
   const searchInput = document.querySelector("input#search");
-  const focusedElement = document.activeElement as any;
-  const isInCommentSection = focusedElement.closest("#contenteditable-root");
+  const focusedElement: Element | null = document.activeElement;
+  const isInCommentSection = focusedElement?.closest("#contenteditable-root");
 
   if (
     event.code === "KeyH" &&
