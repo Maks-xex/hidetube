@@ -4,12 +4,9 @@ module.exports = {
       return {
         ...webpackConfig,
         entry: {
-          main: [
-            env === "development" &&
-              require.resolve("react-dev-utils/webpackHotDevClient"),
-            paths.appIndexJs,
-          ].filter(Boolean),
+          main: [paths.appIndexJs].filter(Boolean),
           content: "./src/chrome/content.ts",
+          background: "./src/chrome/background.ts",
         },
         output: {
           ...webpackConfig.output,
@@ -19,6 +16,9 @@ module.exports = {
           ...webpackConfig.optimization,
           runtimeChunk: false,
         },
+        plugins: webpackConfig.plugins.filter(
+          (plugin) => plugin.constructor.name !== "GenerateSW" // remove CRA's service worker
+        ),
       };
     },
   },
