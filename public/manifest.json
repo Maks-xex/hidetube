@@ -18,7 +18,7 @@
       "matches": ["https://www.youtube.com/*"],
       "js": ["static/js/content.js"],
       "all_frames": false,
-      "run_at": "document_end"
+      "run_at": "document_idle"
     }
   ],
   "background": {
@@ -31,5 +31,5 @@
     }
   },
   "host_permissions": ["https://www.youtube.com/*", "https://www.youtu.be/*"],
-  "permissions": ["storage", "activeTab", "tabs"]
+  "permissions": ["storage", "activeTab", "tabs", "scripting", "webNavigation"]
 }

@@ -17,23 +17,11 @@ type ControlsState = {
 };
 
 export const App = () => {
-  const [isVisibile, setIsVisibile] = useState(true);
+  const [isVisible, setIsVisible] = useState(true);
   const [controls, setControls] = useState<ControlsState>({
     isPlaying: true,
     isMute: false,
   });
-
-  useEffect(() => {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      chrome.tabs.sendMessage(
-        tabs[0].id!,
-        { type: "GET_VISIBILITY" },
-        (response) => {
-          if (response) setIsVisibile(response.visible);
-        }
-      );
-    });
-  }, []);
 
   const toggleControl = (controlName: keyof ControlsState) => {
     setControls((prev) => ({
@@ -43,25 +31,43 @@ export const App = () => {
   };
 
   const toggleVisibility = () => {
-    const newState = !isVisibile;
-    setIsVisibile(newState);
+    const newState = !isVisible;
+    setIsVisible(newState);
     chrome.storage.local.set({ isVisible: newState });
 
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       if (tabs[0].url?.includes("youtube.com/watch")) {
-        chrome.tabs.sendMessage(tabs[0].id!, {
-          type: "APPLY_VISIBILITY",
-          visible: newState,
-        });
+        if (tabs[0]?.id) {
+          chrome.tabs.sendMessage(tabs[0].id, {
+            type: "APPLY_VISIBILITY",
+            visible: newState,
+          });
+        }
       }
     });
   };
+
+  useEffect(() => {
+    chrome.storage.local.get("isVisible", (result) => {
+      if (typeof result.isVisible === "boolean") {
+        setIsVisible(result.isVisible);
+      }
+    });
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      if (tabs[0]?.url?.includes("youtube.com/watch") && tabs[0]?.id) {
+        chrome.tabs.sendMessage(tabs[0].id, {
+          type: "APPLY_VISIBILITY",
+          visible: isVisible,
+        });
+      }
+    });
+  }, [isVisible]);
 
   return (
     <div className="popup">
       <ul
         className={`popup__controls lstn ${
-          !isVisibile && "popup__controls--hidden"
+          !isVisible && "popup__controls--hidden"
         }`}
       >
         <li
@@ -109,14 +115,14 @@ export const App = () => {
       </nav>
       <div className="popup__main">
         <p className="popup__status">
-          Overlay: <strong>{isVisibile ? "Shown" : "Hidden"}</strong>
+          Overlay: <strong>{isVisible ? "Shown" : "Hidden"}</strong>
         </p>
         <label className="popup__toggle">
           <input
             className="popup__toggle-input"
             type="checkbox"
             onChange={toggleVisibility}
-            checked={!isVisibile}
+            checked={!isVisible}
           />
           <span className="popup__slider popup__slider--round"></span>
         </label>
@@ -144,7 +150,7 @@ export const App = () => {
       </footer>
       <div
         className={`popup__fake-progress-bar ${
-          !isVisibile && "popup__controls--hidden"
+          !isVisible && "popup__controls--hidden"
         }`}
       ></div>
     </div>
