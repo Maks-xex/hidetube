@@ -47,20 +47,27 @@ if (!(window as any)._myExtensionScriptInjected) {
   });
 
   chrome.runtime.onMessage.addListener((msg, _, sendResponse) => {
-    if (msg.type === "TOGGLE_UI") {
-      isVisible = !isVisible;
-      chrome.storage.local.set({ isVisible });
-      applyVisibility(isVisible);
-      sendResponse({ visible: isVisible });
-    } else if (msg.type === "GET_VISIBILITY") {
-      sendResponse({ visible: isVisible });
-    } else if (msg.type === "APPLY_VISIBILITY") {
-      if (typeof msg.visible === "boolean") {
-        applyVisibility(msg.visible);
-      }
-      sendResponse({ ok: true });
-    } else if (msg.type === "PING") {
-      sendResponse("PONG");
+    switch (msg.type) {
+      case "TOGGLE_UI":
+        isVisible = !isVisible;
+        chrome.storage.local.set({ isVisible });
+        applyVisibility(isVisible);
+        sendResponse({ visible: isVisible });
+        break;
+      case "GET_VISIBILITY":
+        sendResponse({ visible: isVisible });
+        break;
+      case "APPLY_VISIBILITY":
+        if (typeof msg.visible === "boolean") {
+          applyVisibility(msg.visible);
+        }
+        sendResponse({ ok: true });
+        break;
+      case "PING":
+        sendResponse("PONG");
+        break;
+      default:
+        break;
     }
   });
 
