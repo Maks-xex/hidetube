@@ -16,9 +16,7 @@ module.exports = {
           ...webpackConfig.optimization,
           runtimeChunk: false,
         },
-        plugins: webpackConfig.plugins.filter(
-          (plugin) => plugin.constructor.name !== "GenerateSW"
-        ),
+        plugins: webpackConfig.plugins.filter((plugin) => plugin.constructor.name !== "GenerateSW"),
       };
     },
   },
