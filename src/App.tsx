@@ -65,25 +65,16 @@ export const App = () => {
 
   return (
     <div className="popup">
-      <ul
-        className={`popup__controls lstn ${
-          !isVisible && "popup__controls--hidden"
-        }`}
-      >
-        <li
-          className="popup__control"
-          onClick={() => toggleControl("isPlaying")}
-        >
-          <FontAwesomeIcon
-            icon={controls.isPlaying ? faPlay : faPause}
-            width="15px"
-          />
+      <ul className={`popup__controls lstn ${!isVisible && "popup__controls--hidden"}`}>
+        <li>
+          <button className="popup__control" onClick={() => toggleControl("isPlaying")}>
+            <FontAwesomeIcon icon={controls.isPlaying ? faPlay : faPause} width="15px" />
+          </button>
         </li>
-        <li className="popup__control" onClick={() => toggleControl("isMute")}>
-          <FontAwesomeIcon
-            icon={controls.isMute ? faVolumeMute : faVolumeLow}
-            width="15px"
-          />
+        <li>
+          <button className="popup__control" onClick={() => toggleControl("isMute")}>
+            <FontAwesomeIcon icon={controls.isMute ? faVolumeMute : faVolumeLow} width="15px" />
+          </button>
         </li>
         <li className="popup__control popup__control--expand">
           <FontAwesomeIcon color="white" icon={faExpand} width="15px" />
@@ -124,7 +115,7 @@ export const App = () => {
             onChange={toggleVisibility}
             checked={!isVisible}
           />
-          <span className="popup__slider popup__slider--round"></span>
+          <span className="popup__slider popup__slider--round">toggleControl</span>
         </label>
       </div>
       <footer className="popup__footer">
@@ -144,15 +135,10 @@ export const App = () => {
           <h1 className="popup__title">@HideTube</h1>
         </a>
         <p className="popup__description">
-          Hide distractions. Toggle YouTube’s UI for a cleaner viewing
-          experience.
+          Hide distractions. Toggle YouTube’s UI for a cleaner viewing experience.
         </p>
       </footer>
-      <div
-        className={`popup__fake-progress-bar ${
-          !isVisible && "popup__controls--hidden"
-        }`}
-      ></div>
+      <div className={`popup__fake-progress-bar ${!isVisible && "popup__controls--hidden"}`}></div>
     </div>
   );
 };

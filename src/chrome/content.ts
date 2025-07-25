@@ -8,11 +8,7 @@ if (!(window as any)._myExtensionScriptInjected) {
     const focusedElement: Element | null = document.activeElement;
     const isInCommentSection = focusedElement?.closest("#contenteditable-root");
 
-    if (
-      event.code === "KeyH" &&
-      focusedElement !== searchInput &&
-      !isInCommentSection
-    ) {
+    if (event.code === "KeyH" && focusedElement !== searchInput && !isInCommentSection) {
       isVisible = !isVisible;
       applyVisibility(isVisible);
       chrome.storage.local.set({ isVisible });
@@ -28,14 +24,11 @@ if (!(window as any)._myExtensionScriptInjected) {
       (el as HTMLElement).style.display = display;
     });
 
-    const chromeBottom = document.querySelector(
-      ".ytp-chrome-bottom"
-    ) as HTMLElement;
+    const chromeBottom = document.querySelector(".ytp-chrome-bottom") as HTMLElement;
     const chromeTop = document.querySelector(".ytp-chrome-top") as HTMLElement;
     const annotation = document.querySelector(".annotation") as HTMLElement;
 
-    if (chromeBottom instanceof HTMLElement)
-      chromeBottom.style.display = display;
+    if (chromeBottom instanceof HTMLElement) chromeBottom.style.display = display;
     if (chromeTop instanceof HTMLElement) chromeTop.style.display = display;
     if (annotation instanceof HTMLElement) annotation.style.display = display;
   };

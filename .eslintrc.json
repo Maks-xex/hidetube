@@ -1,26 +1,32 @@
 {
-  "env": {
-    "browser": true,
-    "es2021": true
-  },
   "extends": [
     "react-app",
+    "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
-    "plugin:import/recommended",
+    "plugin:jsx-a11y/recommended",
     "plugin:prettier/recommended"
   ],
-  "plugins": ["unused-imports", "react", "prettier"],
+  "plugins": ["react", "jsx-a11y", "prettier"],
+  "globals": {
+    "chrome": "readonly"
+  },
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true,
+    "jest": true
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
   "rules": {
-    "prettier/prettier": "warn",
-    "unused-imports/no-unused-imports": "warn",
-    "import/order": [
-      "warn",
-      {
-        "groups": ["builtin", "external", "internal"],
-        "alphabetize": { "order": "asc", "caseInsensitive": true }
-      }
-    ]
+    "prettier/prettier": ["error"],
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off"
   },
   "settings": {
     "react": {

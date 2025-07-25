@@ -13,12 +13,9 @@ const injectAndApplyVisibility = (tabId: number) => {
             },
             () => {
               if (chrome.runtime.lastError) {
-                console.warn(
-                  "Error sending message:",
-                  chrome.runtime.lastError.message
-                );
+                console.warn("Error sending message:", chrome.runtime.lastError.message);
               }
-            }
+            },
           );
         }
       });
@@ -55,10 +52,7 @@ chrome.tabs.onActivated.addListener((activeInfo) => {
 });
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (
-    changeInfo.status === "complete" &&
-    tab.url?.includes("youtube.com/watch")
-  ) {
+  if (changeInfo.status === "complete" && tab.url?.includes("youtube.com/watch")) {
     injectAndApplyVisibility(tabId);
   }
 });
