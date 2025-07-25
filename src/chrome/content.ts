@@ -3,17 +3,7 @@ if (!(window as any)._myExtensionScriptInjected) {
 
   let isVisible = true;
 
-  document.addEventListener("keydown", (event) => {
-    const searchInput = document.querySelector("input#search");
-    const focusedElement: Element | null = document.activeElement;
-    const isInCommentSection = focusedElement?.closest("#contenteditable-root");
-
-    if (event.code === "KeyH" && focusedElement !== searchInput && !isInCommentSection) {
-      isVisible = !isVisible;
-      applyVisibility(isVisible);
-      chrome.storage.local.set({ isVisible });
-    }
-  });
+  const localStorage = chrome.storage.local;
 
   const applyVisibility = (visible: boolean) => {
     isVisible = visible;
@@ -33,6 +23,24 @@ if (!(window as any)._myExtensionScriptInjected) {
     if (annotation instanceof HTMLElement) annotation.style.display = display;
   };
 
+  document.addEventListener("keydown", (event) => {
+    if (!window.location.href.includes("youtube.com/watch")) return;
+
+    const searchInput = document.querySelector("input#search");
+    const focusedElement: Element | null = document.activeElement;
+    const isInEditableField = focusedElement?.closest("[contenteditable], textarea, input");
+
+    if (event.code === "KeyH" && focusedElement !== searchInput && !isInEditableField) {
+      isVisible = !isVisible;
+      applyVisibility(isVisible);
+      try {
+        localStorage.set({ isVisible });
+      } catch (err) {
+        console.warn("Failed to save visibility state:", err);
+      }
+    }
+  });
+
   chrome.storage.local.get("isVisible", (result) => {
     if (typeof result.isVisible === "boolean") {
       applyVisibility(result.isVisible);
@@ -43,7 +51,7 @@ if (!(window as any)._myExtensionScriptInjected) {
     switch (msg.type) {
       case "TOGGLE_UI":
         isVisible = !isVisible;
-        chrome.storage.local.set({ isVisible });
+        localStorage.set({ isVisible });
         applyVisibility(isVisible);
         sendResponse({ visible: isVisible });
         break;
@@ -65,10 +73,17 @@ if (!(window as any)._myExtensionScriptInjected) {
   });
 
   const watchForPlayerUI = () => {
+    let observerTimeout: number | null = null;
+
     const observer = new MutationObserver(() => {
-      if (document.querySelector(".ytp-ce-element")) {
-        applyVisibility(isVisible);
-      }
+      if (observerTimeout !== null) return;
+
+      observerTimeout = window.setTimeout(() => {
+        if (document.querySelector(".ytp-ce-element")) {
+          applyVisibility(isVisible);
+        }
+        observerTimeout = null;
+      }, 300);
     });
 
     observer.observe(document.body, {
