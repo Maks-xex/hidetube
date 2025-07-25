@@ -1,0 +1,118 @@
+{
+  "extends": ["stylelint-config-standard", "stylelint-config-prettier"],
+  "plugins": ["stylelint-order"],
+  "rules": {
+    "order/order": ["custom-properties", "declarations"],
+    "order/properties-order": [
+      {
+        "groupName": "Positioning",
+        "properties": ["position", "z-index", "top", "right", "bottom", "left"]
+      },
+      {
+        "groupName": "Flex/Grid",
+        "properties": [
+          "display",
+          "flex-direction",
+          "flex-wrap",
+          "flex",
+          "flex-grow",
+          "flex-shrink",
+          "flex-basis",
+          "justify-content",
+          "align-items",
+          "align-content",
+          "grid-template-columns",
+          "grid-template-rows",
+          "grid-area",
+          "grid-column",
+          "grid-row",
+          "gap"
+        ]
+      },
+      {
+        "groupName": "Box Model",
+        "properties": [
+          "box-sizing",
+          "width",
+          "min-width",
+          "max-width",
+          "height",
+          "min-height",
+          "max-height",
+          "margin",
+          "margin-top",
+          "margin-right",
+          "margin-bottom",
+          "margin-left",
+          "padding",
+          "padding-top",
+          "padding-right",
+          "padding-bottom",
+          "padding-left",
+          "overflow",
+          "overflow-x",
+          "overflow-y"
+        ]
+      },
+      {
+        "groupName": "Typography",
+        "properties": [
+          "font",
+          "font-size",
+          "font-weight",
+          "font-style",
+          "line-height",
+          "letter-spacing",
+          "text-align",
+          "text-decoration",
+          "text-transform",
+          "white-space",
+          "color"
+        ]
+      },
+      {
+        "groupName": "Visual",
+        "properties": [
+          "background",
+          "background-color",
+          "background-image",
+          "background-position",
+          "background-size",
+          "border",
+          "border-radius",
+          "box-shadow",
+          "opacity",
+          "visibility"
+        ]
+      },
+      {
+        "groupName": "Animation",
+        "properties": [
+          "transition",
+          "transition-delay",
+          "transition-duration",
+          "transition-property",
+          "transition-timing-function",
+          "animation",
+          "animation-delay",
+          "animation-duration",
+          "animation-name",
+          "animation-timing-function"
+        ]
+      },
+      {
+        "groupName": "Misc",
+        "properties": ["cursor", "pointer-events", "user-select"]
+      }
+    ],
+    "no-empty-source": null,
+    "at-rule-no-unknown": true,
+    "selector-class-pattern": [
+      "^[a-z0-9]+(?:__[a-z0-9]+(?:-[a-z0-9]+)*)?(?:--[a-z0-9]+(?:-[a-z0-9]+)*)?$",
+      {
+        "message": "Selector class name should follow BEM convention (e.g., block__element--modifier)."
+      }
+    ]
+  },
+  "ignoreFiles": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "node_modules/**"]
+}

@@ -1,6 +1,17 @@
+const path = require("path");
+const StyleLintPlugin = require("stylelint-webpack-plugin");
+
 module.exports = {
   webpack: {
-    configure: (webpackConfig, { env, paths }) => {
+    configure: (webpackConfig, { _, paths }) => {
+      webpackConfig.plugins.push(
+        new StyleLintPlugin({
+          context: path.resolve(__dirname, "src"),
+          files: ["**/*.css", "**/*.scss"],
+          configFile: path.resolve(__dirname, ".stylelintrc.json"),
+        }),
+      );
+
       return {
         ...webpackConfig,
         entry: {
