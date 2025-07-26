@@ -43,6 +43,6 @@ Your preference is saved automatically and restored when you visit new videos.
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Maks-xex/hidetube-ui.git
-   cd youtube-ui-toggler
+   git clone https://github.com/Maks-xex/hidetube.git
+   cd hidetube
    ```
