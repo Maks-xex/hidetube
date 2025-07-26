@@ -1,12 +1,12 @@
 {
   "short_name": "HTUI",
   "name": "HideTubeUI",
-  "description": "Toggle YouTube overlays and controls",
+  "description": "extension to toggle YouTube UI overlays",
   "manifest_version": 3,
   "version": "1.0",
   "action": {
     "default_popup": "index.html",
-    "default_title": "press H key to hide player HUD"
+    "default_title": "Control overlays on YouTube videos"
   },
   "icons": {
     "16": "icon16.png",
@@ -23,12 +23,6 @@
   ],
   "background": {
     "service_worker": "static/js/background.js"
-  },
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "addon@example.com",
-      "strict_min_version": "42.0"
-    }
   },
   "host_permissions": ["https://www.youtube.com/*", "https://www.youtu.be/*"],
   "permissions": ["storage", "activeTab", "tabs", "scripting", "webNavigation"]
