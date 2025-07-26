@@ -54,15 +54,7 @@ export const App = () => {
         setIsVisible(result.isVisible);
       }
     });
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      if (tabs[0]?.url?.includes("youtube.com/watch") && tabs[0]?.id) {
-        chrome.tabs.sendMessage(tabs[0].id, {
-          type: "APPLY_VISIBILITY",
-          visible: isVisible,
-        });
-      }
-    });
-  }, [isVisible]);
+  }, []);
 
   return (
     <div className="popup">
@@ -98,7 +90,7 @@ export const App = () => {
             <a
               href="https://github.com/Maks-xex/hidetube-ui/issues/new?template=bug_report.md"
               title="BUG REPORT"
-              aria-label=""
+              aria-label="Report a bug"
               target="_blank"
               rel="noreferrer"
             >
@@ -109,6 +101,7 @@ export const App = () => {
             <a
               href="https://github.com/Maks-xex/hidetube-ui/issues/new?template=feedback.md"
               title="Feedback"
+              aria-label="Give feedback"
               target="_blank"
               rel="noreferrer"
             >
@@ -128,7 +121,7 @@ export const App = () => {
             onChange={toggleVisibility}
             checked={!isVisible}
           />
-          <span className="popup__slider popup__slider--round">toggleControl</span>
+          <span className="popup__slider popup__slider--round">Toggle Overlay</span>
         </label>
       </div>
       <footer className="popup__footer">
