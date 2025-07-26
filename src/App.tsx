@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faBug,
   faComment,
   faExpand,
   faPause,
@@ -65,7 +66,7 @@ export const App = () => {
 
   return (
     <div className="popup">
-      <ul className={`popup__controls lstn ${!isVisible && "popup__controls--hidden"}`}>
+      <ul className={`popup__controls ${!isVisible && "popup__controls--hidden"}`}>
         <li>
           <button className="popup__control" onClick={() => toggleControl("isPlaying")}>
             <FontAwesomeIcon icon={controls.isPlaying ? faPlay : faPause} width="15px" />
@@ -81,21 +82,33 @@ export const App = () => {
         </li>
       </ul>
       <nav className="popup__nav">
-        <ul className="lstn">
-          <li className="popup__control-donate">
+        <ul className="popup__nav-list">
+          <li className="popup__nav-item popup__nav-donate">
             <a
               href="https://ko-fi.com/zonkx"
               title="Support me before I start talking to my computer"
               target="_blank"
               rel="noreferrer"
+              aria-label="Support me on Ko-fi"
             >
               <FontAwesomeIcon icon={faThumbsUp} />
             </a>
           </li>
-          <li>
+          <li className="popup__nav-item popup__nav-bugreport">
             <a
-              href="https://github.com/Maks-xex/hidetube-ui/issues"
+              href="https://github.com/Maks-xex/hidetube-ui/issues/new?template=bug_report.md"
               title="BUG REPORT"
+              aria-label=""
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FontAwesomeIcon icon={faBug} />
+            </a>
+          </li>
+          <li className="popup__nav-item popup__nav-feedback">
+            <a
+              href="https://github.com/Maks-xex/hidetube-ui/issues/new?template=feedback.md"
+              title="Feedback"
               target="_blank"
               rel="noreferrer"
             >
