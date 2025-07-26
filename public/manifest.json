@@ -1,6 +1,6 @@
 {
-  "short_name": "HTUI",
-  "name": "HideTubeUI",
+  "short_name": "HT",
+  "name": "HideTube",
   "description": "extension to toggle YouTube UI overlays",
   "manifest_version": 3,
   "version": "1.0",
