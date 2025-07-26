@@ -50,7 +50,7 @@
 .popup__nav {
   position: absolute;
   right: 10px;
-  bottom: 46px;
+  bottom: 59px;
   font-size: 15px;
   color: white;
 }
@@ -147,6 +147,16 @@ input:checked + .popup__slider::before {
   margin-top: 4px;
   margin-bottom: 0;
   font-size: 11px;
+}
+
+.popup__tip {
+  display: flex;
+  margin-top: 5px;
+  margin-bottom: 0;
+  margin-left: -1px;
+  font-size: 10px;
+  font-weight: bold;
+  color: #ffd679;
 }
 
 .popup__fake-progress-bar {

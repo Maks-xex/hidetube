@@ -5,6 +5,7 @@ import {
   faBug,
   faComment,
   faExpand,
+  faLightbulb,
   faPause,
   faPlay,
   faThumbsUp,
@@ -142,6 +143,10 @@ export const App = () => {
         </a>
         <p className="popup__description">
           Hide distractions. Toggle YouTube’s UI for a cleaner viewing experience.
+        </p>
+        <p className="popup__tip">
+          <FontAwesomeIcon icon={faLightbulb} width={9} color="#ffd679" />
+          Press H to toggle UI anytime
         </p>
       </footer>
       <div className={`popup__fake-progress-bar ${!isVisible && "popup__controls--hidden"}`}></div>
