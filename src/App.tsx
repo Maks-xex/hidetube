@@ -88,7 +88,7 @@ export const App = () => {
           </li>
           <li className="popup__nav-item popup__nav-bugreport">
             <a
-              href="https://github.com/Maks-xex/hidetube-ui/issues/new?template=bug_report.md"
+              href="https://github.com/Maks-xex/hidetube/issues/new?template=bug_report.md"
               title="BUG REPORT"
               aria-label="Report a bug"
               target="_blank"
@@ -99,7 +99,7 @@ export const App = () => {
           </li>
           <li className="popup__nav-item popup__nav-feedback">
             <a
-              href="https://github.com/Maks-xex/hidetube-ui/issues/new?template=feedback.md"
+              href="https://github.com/Maks-xex/hidetube/issues/new?template=feedback.md"
               title="Feedback"
               aria-label="Give feedback"
               target="_blank"
