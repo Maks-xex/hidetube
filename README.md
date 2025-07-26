@@ -6,7 +6,7 @@ A lightweight Chrome extension that hides YouTube's on-screen elements (like vid
 
 ## ✨ Features
 
-- 🔘 Press `H` to toggle YouTube UI elements (on/off)
+- 🎯 Press H to instantly hide/show YouTube overlays
 - 💾 Saves visibility preference across sessions
 - 🔄 Automatically re-applies toggle state when navigating videos
 - 🧠 Remembers settings even after tab switches or reloads
@@ -19,16 +19,20 @@ A lightweight Chrome extension that hides YouTube's on-screen elements (like vid
 1. Open any YouTube video (`youtube.com/watch?...`)
 2. Press the `H` key or open popup and press toggle button
 3. UI elements like:
-   - End screen elements (`.ytp-ce-element`)
-   - Top & bottom controls (`.ytp-chrome-top`, `.ytp-chrome-bottom`)
-   - Annotations (`.annotation`)
+   - 🎬 End screens (`.ytp-ce-element`)
+   - 🎛 Video controls (`.ytp-chrome-top`, `.ytp-chrome-bottom`)
+   - 📝 Annotations (`.annotation`)
      will instantly hide or show
 
 Your preference is saved automatically and restored when you visit new videos.
 
 ---
 
-## 🚀 Install
+## ❓ Why Use It?
+
+- ✅ Removes distractions for focused watching
+- 📺 Great for minimalists or video reviewers
+- 🧘 Cleaner look = better experience
 
 ### From Chrome Web Store
 
@@ -39,6 +43,6 @@ Your preference is saved automatically and restored when you visit new videos.
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/youtube-ui-toggler.git
+   git clone https://github.com/Maks-xex/hidetube-ui.git
    cd youtube-ui-toggler
    ```
