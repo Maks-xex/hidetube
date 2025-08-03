@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./App.css";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBug,
@@ -12,6 +12,10 @@ import {
   faVolumeLow,
   faVolumeMute,
 } from "@fortawesome/free-solid-svg-icons";
+
+import { applyToIframe } from "./utils/applyToIframe";
+
+import "./App.css";
 
 type ControlsState = {
   isPlaying: boolean;
@@ -38,14 +42,16 @@ export const App = () => {
     chrome.storage.local.set({ isVisible: newState });
 
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      if (tabs[0].url?.includes("youtube.com/watch")) {
-        if (tabs[0]?.id) {
-          chrome.tabs.sendMessage(tabs[0].id, {
-            type: "APPLY_VISIBILITY",
-            visible: newState,
-          });
-        }
+      const tab = tabs[0];
+      if (!tab?.id) return;
+      if (tab.url?.includes("youtube.com/watch")) {
+        chrome.tabs.sendMessage(tab.id, {
+          type: "APPLY_VISIBILITY",
+          visible: newState,
+        });
+        return;
       }
+      applyToIframe(tab);
     });
   };
 

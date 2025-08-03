@@ -15,15 +15,25 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://www.youtube.com/*"],
+      "matches": ["*://*.youtube.com/*", "*://*.youtube-nocookie.com/*"],
       "js": ["static/js/content.js"],
-      "all_frames": false,
+      "all_frames": true,
       "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["static/js/content.js"],
+      "matches": ["<all_urls>"]
     }
   ],
   "background": {
     "service_worker": "static/js/background.js"
   },
-  "host_permissions": ["https://www.youtube.com/*", "https://www.youtu.be/*"],
+  "host_permissions": [
+    "*://*.youtube.com/*",
+    "*://www.youtube-nocookie.com/*",
+    "*://*.youtube.com/embed*"
+  ],
   "permissions": ["storage", "activeTab", "tabs", "scripting", "webNavigation"]
 }

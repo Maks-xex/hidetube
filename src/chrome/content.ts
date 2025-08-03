@@ -14,9 +14,13 @@ if (!(window as any)._myExtensionScriptInjected) {
       (el as HTMLElement).style.display = display;
     });
 
-    const chromeBottom = document.querySelector(".ytp-chrome-bottom") as HTMLElement;
-    const chromeTop = document.querySelector(".ytp-chrome-top") as HTMLElement;
-    const annotation = document.querySelector(".annotation") as HTMLElement;
+    if (window.top !== window.self) {
+      const pauseOvelay = document.querySelector(".ytp-pause-overlay-container");
+      if (pauseOvelay instanceof HTMLElement) pauseOvelay.style.display = display;
+    }
+    const chromeBottom = document.querySelector(".ytp-chrome-bottom");
+    const chromeTop = document.querySelector(".ytp-chrome-top");
+    const annotation = document.querySelector(".annotation");
 
     if (chromeBottom instanceof HTMLElement) chromeBottom.style.display = display;
     if (chromeTop instanceof HTMLElement) chromeTop.style.display = display;
@@ -24,8 +28,6 @@ if (!(window as any)._myExtensionScriptInjected) {
   };
 
   document.addEventListener("keydown", (event) => {
-    if (!window.location.href.includes("youtube.com/watch")) return;
-
     const searchInput = document.querySelector("input#search");
     const focusedElement: Element | null = document.activeElement;
     const isInEditableField = focusedElement?.closest("[contenteditable], textarea, input");
