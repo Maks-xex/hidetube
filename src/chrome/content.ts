@@ -77,10 +77,15 @@ if (!(window as any)._myExtensionScriptInjected) {
     let observerTimeout: number | null = null;
 
     const observer = new MutationObserver(() => {
+      const hasUIElements =
+        document.querySelector(".ytp-ce-element") ||
+        document.querySelector(".ytp-chrome-bottom") ||
+        document.querySelector(".ytp-pause-overlay-container");
+
       if (observerTimeout !== null) return;
 
       observerTimeout = window.setTimeout(() => {
-        if (document.querySelector(".ytp-ce-element")) {
+        if (hasUIElements) {
           applyVisibility(isVisible);
         }
         observerTimeout = null;
