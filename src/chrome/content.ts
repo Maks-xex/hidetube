@@ -3,28 +3,27 @@ if (!(window as any)._myExtensionScriptInjected) {
 
   let isVisible = true;
 
-  const localStorage = chrome.storage.local;
+  const chromeStorage = chrome.storage.local;
 
   const applyVisibility = (visible: boolean) => {
     isVisible = visible;
     const display = isVisible ? "" : "none";
 
-    const elements = document.querySelectorAll(".ytp-ce-element");
-    elements.forEach((el) => {
-      (el as HTMLElement).style.display = display;
-    });
+    const elements = [
+      ...document.querySelectorAll(".ytp-ce-element"),
+      document.querySelector(".ytp-chrome-bottom"),
+      document.querySelector(".ytp-chrome-top"),
+      document.querySelector(".annotation"),
+    ];
 
     if (window.top !== window.self) {
       const pauseOvelay = document.querySelector(".ytp-pause-overlay-container");
       if (pauseOvelay instanceof HTMLElement) pauseOvelay.style.display = display;
     }
-    const chromeBottom = document.querySelector(".ytp-chrome-bottom");
-    const chromeTop = document.querySelector(".ytp-chrome-top");
-    const annotation = document.querySelector(".annotation");
 
-    if (chromeBottom instanceof HTMLElement) chromeBottom.style.display = display;
-    if (chromeTop instanceof HTMLElement) chromeTop.style.display = display;
-    if (annotation instanceof HTMLElement) annotation.style.display = display;
+    elements.forEach((element) => {
+      if (element instanceof HTMLElement) element.style.display = display;
+    });
   };
 
   document.addEventListener("keydown", (event) => {
@@ -36,7 +35,7 @@ if (!(window as any)._myExtensionScriptInjected) {
       isVisible = !isVisible;
       applyVisibility(isVisible);
       try {
-        localStorage.set({ isVisible });
+        chromeStorage.set({ isVisible });
       } catch (err) {
         console.warn("Failed to save visibility state:", err);
       }
@@ -53,7 +52,7 @@ if (!(window as any)._myExtensionScriptInjected) {
     switch (msg.type) {
       case "TOGGLE_UI":
         isVisible = !isVisible;
-        localStorage.set({ isVisible });
+        chromeStorage.set({ isVisible });
         applyVisibility(isVisible);
         sendResponse({ visible: isVisible });
         break;
