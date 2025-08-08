@@ -38,6 +38,10 @@ Your visibility setting is saved automatically and restored when revisiting or n
 - 📺 Great for embedded video experiences
 - 🧘 Cleaner look = better experience
 
+---
+
+## 🚀 Installation
+
 ### From Chrome Web Store
 
 📦 Coming soon...
