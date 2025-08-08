@@ -105,7 +105,7 @@ export const App = () => {
           </li>
           <li className="popup__nav-item popup__nav-feedback">
             <a
-              href="https://github.com/Maks-xex/hidetube/issues/new?template=feedback.md"
+              href="https://tally.so/r/nPq410"
               title="Feedback"
               aria-label="Give feedback"
               target="_blank"
