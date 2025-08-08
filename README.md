@@ -61,7 +61,7 @@ Until it's available in the Chrome Web Store, you can install it manually:
 
 🎉 Done! The extension should now be active and ready to use.
 
-### From Source (Development Mode)
+### 🛠️ From Source (Development Mode)
 
 1. Clone the repository:
 
