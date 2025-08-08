@@ -16,6 +16,7 @@ import {
 import { applyToIframe } from "./utils/applyToIframe";
 
 import "./App.css";
+import { sendVisibility } from "./utils/sendVisability";
 
 type ControlsState = {
   isPlaying: boolean;
@@ -39,15 +40,12 @@ export const App = () => {
   const toggleVisibility = () => {
     const newState = !isVisible;
     setIsVisible(newState);
-
+    chrome.storage.local.set({ isVisible: newState });
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const tab = tabs[0];
       if (!tab?.id) return;
       if (tab.url?.includes("youtube.com/watch")) {
-        chrome.tabs.sendMessage(tab.id, {
-          type: "APPLY_VISIBILITY",
-          visible: newState,
-        });
+        sendVisibility(tab.id, newState);
         return;
       }
       applyToIframe(tab);

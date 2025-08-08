@@ -1,20 +1,12 @@
+import { getVisibility } from "../utils/getVisibility";
+
 if (!(window as any)._myExtensionScriptInjected) {
   (window as any)._myExtensionScriptInjected = true;
 
   let isVisible = true;
-  const chromeStorage = chrome.storage.local;
 
   const applyVisibility = (visible: boolean) => {
     isVisible = visible;
-    if (typeof chrome.runtime?.id === "undefined") return;
-    chrome.storage.local.set({ isVisible }, () => {
-      if (chrome.runtime.lastError) {
-        if (chrome.runtime.lastError.message === "Extension context invalidated.") {
-          return;
-        }
-        console.warn("Storage error:", chrome.runtime.lastError.message);
-      }
-    });
     const display = isVisible ? "" : "none";
 
     const elements = [
@@ -25,8 +17,8 @@ if (!(window as any)._myExtensionScriptInjected) {
     ];
 
     if (window.top !== window.self) {
-      const pauseOvelay = document.querySelector(".ytp-pause-overlay-container");
-      if (pauseOvelay instanceof HTMLElement) pauseOvelay.style.display = display;
+      const pauseOverlay = document.querySelector(".ytp-pause-overlay-container");
+      if (pauseOverlay instanceof HTMLElement) pauseOverlay.style.display = display;
     }
 
     elements.forEach((element) => {
@@ -41,28 +33,22 @@ if (!(window as any)._myExtensionScriptInjected) {
 
       if (event.code === "KeyH" && focusedElement !== searchInput && !isInEditableField) {
         isVisible = !isVisible;
-        applyVisibility(isVisible);
-      }
-    });
-
-    chrome.storage.local.get("isVisible", (result) => {
-      if (typeof result.isVisible === "boolean") {
-        applyVisibility(result.isVisible);
+        if (typeof chrome.runtime?.id === "undefined") return;
+        chrome.storage.local.set({ isVisible }, () => {
+          if (chrome.runtime.lastError) {
+            if (chrome.runtime.lastError.message === "Extension context invalidated.") {
+              return;
+            }
+            console.warn("Storage error:", chrome.runtime.lastError.message);
+          }
+        });
+        getVisibility().then((visibile) => applyVisibility(visibile));
       }
     });
   };
 
   chrome.runtime.onMessage.addListener((msg, _, sendResponse) => {
     switch (msg.type) {
-      case "TOGGLE_UI":
-        isVisible = !isVisible;
-        chromeStorage.set({ isVisible });
-        applyVisibility(isVisible);
-        sendResponse({ visible: isVisible });
-        break;
-      case "GET_VISIBILITY":
-        sendResponse({ visible: isVisible });
-        break;
       case "APPLY_VISIBILITY":
         if (typeof msg.visible === "boolean") {
           applyVisibility(msg.visible);
@@ -90,7 +76,7 @@ if (!(window as any)._myExtensionScriptInjected) {
 
       observerTimeout = window.setTimeout(() => {
         if (hasUIElements) {
-          applyVisibility(isVisible);
+          getVisibility().then((visible) => applyVisibility(visible));
         }
         observerTimeout = null;
       }, 300);
@@ -101,8 +87,9 @@ if (!(window as any)._myExtensionScriptInjected) {
       subtree: true,
     });
   };
-  bindKeyHandler();
+
   watchForPlayerUI();
+  bindKeyHandler();
 }
 
 export {};
