@@ -2,9 +2,17 @@ import { applyToIframe } from "../utils/applyToIframe";
 
 const isYouTubeVideoUrl = (url?: string) => url?.includes("youtube.com/watch");
 
+const injectContentScript = (tabId: number) => {
+  return chrome.scripting.executeScript({
+    target: { tabId },
+    files: ["static/js/content.js"],
+  });
+};
+
 const injectAndApplyVisibility = (tabId: number) => {
   chrome.tabs.sendMessage(tabId, { type: "PING" }, (response) => {
     const needsInjection = chrome.runtime.lastError || response !== "PONG";
+
     const afterInjection = () => {
       chrome.storage.local.get("isVisible", (result) => {
         if (typeof result.isVisible === "boolean") {
@@ -25,11 +33,7 @@ const injectAndApplyVisibility = (tabId: number) => {
     };
 
     if (needsInjection) {
-      chrome.scripting
-        .executeScript({
-          target: { tabId },
-          files: ["static/js/content.js"],
-        })
+      injectContentScript(tabId)
         .then(afterInjection)
         .catch((err) => {
           console.warn("Injection failed:", err.message);
