@@ -2,11 +2,19 @@ if (!(window as any)._myExtensionScriptInjected) {
   (window as any)._myExtensionScriptInjected = true;
 
   let isVisible = true;
-
   const chromeStorage = chrome.storage.local;
 
   const applyVisibility = (visible: boolean) => {
     isVisible = visible;
+    if (typeof chrome.runtime?.id === "undefined") return;
+    chrome.storage.local.set({ isVisible }, () => {
+      if (chrome.runtime.lastError) {
+        if (chrome.runtime.lastError.message === "Extension context invalidated.") {
+          return;
+        }
+        console.warn("Storage error:", chrome.runtime.lastError.message);
+      }
+    });
     const display = isVisible ? "" : "none";
 
     const elements = [
@@ -25,28 +33,24 @@ if (!(window as any)._myExtensionScriptInjected) {
       if (element instanceof HTMLElement) element.style.display = display;
     });
   };
+  const bindKeyHandler = () => {
+    document.addEventListener("keydown", (event) => {
+      const searchInput = document.querySelector("input#search");
+      const focusedElement: Element | null = document.activeElement;
+      const isInEditableField = focusedElement?.closest("[contenteditable], textarea, input");
 
-  document.addEventListener("keydown", (event) => {
-    const searchInput = document.querySelector("input#search");
-    const focusedElement: Element | null = document.activeElement;
-    const isInEditableField = focusedElement?.closest("[contenteditable], textarea, input");
-
-    if (event.code === "KeyH" && focusedElement !== searchInput && !isInEditableField) {
-      isVisible = !isVisible;
-      applyVisibility(isVisible);
-      try {
-        chromeStorage.set({ isVisible });
-      } catch (err) {
-        console.warn("Failed to save visibility state:", err);
+      if (event.code === "KeyH" && focusedElement !== searchInput && !isInEditableField) {
+        isVisible = !isVisible;
+        applyVisibility(isVisible);
       }
-    }
-  });
+    });
 
-  chrome.storage.local.get("isVisible", (result) => {
-    if (typeof result.isVisible === "boolean") {
-      applyVisibility(result.isVisible);
-    }
-  });
+    chrome.storage.local.get("isVisible", (result) => {
+      if (typeof result.isVisible === "boolean") {
+        applyVisibility(result.isVisible);
+      }
+    });
+  };
 
   chrome.runtime.onMessage.addListener((msg, _, sendResponse) => {
     switch (msg.type) {
@@ -97,7 +101,7 @@ if (!(window as any)._myExtensionScriptInjected) {
       subtree: true,
     });
   };
-
+  bindKeyHandler();
   watchForPlayerUI();
 }
 

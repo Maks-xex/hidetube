@@ -39,7 +39,6 @@ export const App = () => {
   const toggleVisibility = () => {
     const newState = !isVisible;
     setIsVisible(newState);
-    chrome.storage.local.set({ isVisible: newState });
 
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const tab = tabs[0];
