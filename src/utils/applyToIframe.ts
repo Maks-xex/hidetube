@@ -26,8 +26,6 @@ export const applyToIframe = (tab: chrome.tabs.Tab) => {
               (res) => {
                 if (chrome.runtime.lastError) {
                   console.warn("Message failed:", chrome.runtime.lastError.message);
-                } else {
-                  console.log("Message sent successfully to iframe:", res);
                 }
               },
             );
