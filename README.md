@@ -42,32 +42,47 @@ Your visibility setting is saved automatically and restored when revisiting or n
 
 📦 Coming soon...
 
+### 🔧 Manual Installation
+
+Until it's available in the Chrome Web Store, you can install it manually:
+
+1. Download the ZIP
+   📥 [Download latest build](https://github.com/Maks-xex/hidetube/releases/download/v1.0/build.zip)
+   (or click [release](https://github.com/Maks-xex/hidetube/releases/tag/v1.0) to view all releases)
+
+2. Extract it
+   Unzip the downloaded build.zip file to any location on your computer.
+
+3. Install the Extension:
+       1. Open Chrome and go to: `chrome://extensions`
+       2. Enable **Developer Mode**
+       3. Click **Load unpacked**
+       4. Select the extracted `build` folder
+
+🎉 Done! The extension should now be active and ready to use.
+
 ### From Source (Development Mode)
 
 1. Clone the repository:
 
-```bash
-git clone https://github.com/Maks-xex/hidetube.git
-cd hidetube
-```
+   ```bash
+   git clone https://github.com/Maks-xex/hidetube.git
+   cd hidetube
+   ```
 
 2. Install dependencies:
 
-```bash
-npm install
-```
+   ```bash
+   npm install
+   ```
 
 3. Build the extension:
 
-```bash
-npm run build
-```
+   ```bash
+   npm run build
+   ```
 
-4. Open Chrome and go to:
-
-```bash
-chrome://extension
-```
+4. Open Chrome and go to: `chrome://extensions`
 
 5. Enable **Developer mode** (top right)
 
