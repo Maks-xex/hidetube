@@ -1,4 +1,4 @@
-# 🎥 YouTube UI Toggler
+# 🎥 HideTube
 
 A lightweight Chrome extension that hides YouTube's on-screen elements (like video overlays, annotations, and control bars) with a single keypress — for a cleaner, distraction-free viewing experience.
 
