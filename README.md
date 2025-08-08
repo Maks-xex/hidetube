@@ -52,16 +52,16 @@ Until it's available in the Chrome Web Store, you can install it manually:
 
 1. Download the ZIP
    📥 [Download latest build](https://github.com/Maks-xex/hidetube/releases/download/v1.0/build.zip)
-   (or click [release](https://github.com/Maks-xex/hidetube/releases/tag/v1.0) to view all releases)
+   (or click [releases](https://github.com/Maks-xex/hidetube/releases/tag/v1.0) to view all releases)
 
 2. Extract it
    Unzip the downloaded build.zip file to any location on your computer.
 
 3. Install the Extension:
-       1. Open Chrome and go to: `chrome://extensions`
-       2. Enable **Developer Mode**
-       3. Click **Load unpacked**
-       4. Select the extracted `build` folder
+   - Open Chrome and go to: `chrome://extensions`
+   - Enable **Developer Mode**
+   - Click **Load unpacked**
+   - Select the extracted `build` folder
 
 🎉 Done! The extension should now be active and ready to use.
 
