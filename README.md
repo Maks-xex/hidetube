@@ -2,8 +2,8 @@
 
 A lightweight Chrome extension that hides YouTube's on-screen elements (like video overlays, annotations, and control bars) with a single keypress — for a cleaner, distraction-free viewing experience.
 
-![HideTube UI off](src/assets/ui_toggle_off.jpg) | ![HideTube UI on](src/assets/ui_toggle_on.jpg)
-![HideTube demo off](src/assets/demo_toggle_off.jpg) | ![HideTube demo on](src/assets/demo_toggle_on.jpg)
+![HideTube UI off](src/assets/ui_toggle_off.jpg) ![HideTube UI on](src/assets/ui_toggle_on.jpg)
+![HideTube demo off](src/assets/demo_toggle_off.jpg)![HideTube demo on](src/assets/demo_toggle_on.jpg)
 
 ---
 
