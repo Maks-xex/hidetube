@@ -1,0 +1,10 @@
+.popup__nav {
+  position: absolute;
+  right: 10px;
+  bottom: 59px;
+  font-size: 15px;
+  color: white;
+}
+.popup__nav-item {
+  padding-bottom: 7px;
+}
