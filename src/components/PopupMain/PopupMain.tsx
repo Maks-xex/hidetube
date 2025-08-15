@@ -1,3 +1,5 @@
+import React from "react";
+
 import { applyToIframe } from "../../utils/applyToIframe";
 import { sendVisibility } from "../../utils/sendVisability";
 
@@ -5,7 +7,7 @@ import "./PopupMain.css";
 
 type PopupMainProps = {
   isVisible: boolean;
-  setIsVisible: (value: boolean) => void;
+  setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const PopupMain = ({ isVisible, setIsVisible }: PopupMainProps) => {
