@@ -11,6 +11,7 @@
 # production
 /build
 /web-ext-artifacts
+build.zip
 
 # misc
 .DS_Store
