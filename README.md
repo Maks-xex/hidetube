@@ -84,13 +84,24 @@ Until it's available in the Chrome Web Store, you can install it manually:
    ```
 
 3. Build the extension:
+   - **For Chrome**
 
    ```bash
    npm run build
    ```
 
-4. Open Chrome and go to: `chrome://extensions`
+   - **For Firefox**
 
-5. Enable **Developer mode** (top right)
+   ```bash
+   npm run build:firefox
+   ```
 
-6. Click **Load unpacked**, then select the generated `build/` folder
+4. Chrome:
+   - Open Chrome and go to: `chrome://extensions`
+   - Enable **Developer mode** (top right)
+   - Click **Load unpacked**, then select the generated `build/` folder
+
+5. Firefox:
+   - Go to `about:debugging#/runtime/this-firefox`
+   - Click Load Temporary Add-on
+   - Select the `hidetube-1.0.zip` file from the `web-ext-artifacts` folder
