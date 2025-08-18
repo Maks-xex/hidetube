@@ -31,3 +31,8 @@
   font-weight: bold;
   color: #ffd679;
 }
+
+.popup__footer-avatar {
+  border: 1px solid;
+  border-radius: 50%;
+}

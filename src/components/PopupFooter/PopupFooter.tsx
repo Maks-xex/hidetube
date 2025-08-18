@@ -17,6 +17,7 @@ export const PopupFooter = () => (
         alt="avatar"
         width="24px"
         height="24px"
+        className="popup__footer-avatar"
       />
       <h1 className="popup__title">@HideTube</h1>
     </a>
