@@ -45,9 +45,9 @@ Your visibility setting is saved automatically and restored when revisiting or n
 
 ## 🚀 Installation
 
-### From Chrome Web Store
+### 🛒 From Chrome Web Store
 
-📦 Coming soon...
+Available on [Chrome Web Store](https://chromewebstore.google.com/detail/hidetube/lemhldinahijhdfeofddkjgjpmebkddm?hl=en-US&utm_source=ext_sidebar)
 
 ### 🔧 Manual Installation
 
