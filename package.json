@@ -18,8 +18,8 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "set INLINE_RUNTIME_CHUNK=false&&craco build",
-    "build:firefox": "web-ext build --overwrite-dest --source-dir ./build --artifacts-dir ./web-ext-artifacts",
+    "build": "INLINE_RUNTIME_CHUNK=false craco build",
+    "build:firefox": "INLINE_RUNTIME_CHUNK=false BUILD_TARGET=firefox craco build && web-ext build --overwrite-dest --source-dir ./build --artifacts-dir ./web-ext-artifacts",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -60,6 +60,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "copy-webpack-plugin": "^13.0.1",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-config-react-app": "^7.0.1",
