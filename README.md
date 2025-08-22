@@ -49,6 +49,10 @@ Your visibility setting is saved automatically and restored when revisiting or n
 
 Available on [Chrome Web Store](https://chromewebstore.google.com/detail/hidetube/lemhldinahijhdfeofddkjgjpmebkddm?hl=en-US&utm_source=ext_sidebar)
 
+### 🛒 From Mozilla ADD-ONS
+
+Available on [Mozilla](https://addons.mozilla.org/en-US/firefox/addon/hidetube/)
+
 ### 🔧 Manual Installation
 
 Until it's available in the Chrome Web Store, you can install it manually:
