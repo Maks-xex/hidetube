@@ -2,6 +2,7 @@
   "name": "HideTube",
   "version": "1.0.0",
   "private": true,
+  "license": "Apache-2.0",
   "dependencies": {
     "@craco/craco": "^7.1.0",
     "@fortawesome/fontawesome-svg-core": "^7.0.0",
