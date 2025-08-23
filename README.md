@@ -58,8 +58,8 @@ Available on [Mozilla](https://addons.mozilla.org/en-US/firefox/addon/hidetube/)
 Until it's available in the Chrome Web Store, you can install it manually:
 
 1. Download the ZIP
-   📥 [Download latest build](https://github.com/Maks-xex/hidetube/releases/download/v1.0/build.zip)
-   (or click [releases](https://github.com/Maks-xex/hidetube/releases/tag/v1.0) to view all releases)
+   📥 [Download latest build](https://github.com/zonkviral/hidetube/releases/download/v1.1.1/build.zip)
+   (or click [releases](https://github.com/zonkviral/hidetube/releases) to view all releases)
 
 2. Extract it
    Unzip the downloaded build.zip file to any location on your computer.
